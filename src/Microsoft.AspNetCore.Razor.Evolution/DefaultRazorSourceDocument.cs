@@ -10,6 +10,7 @@ namespace Microsoft.AspNetCore.Razor.Evolution
     internal class DefaultRazorSourceDocument : RazorSourceDocument
     {
         private MemoryStream _stream;
+        private string _content;
 
         public DefaultRazorSourceDocument(MemoryStream stream, Encoding encoding, string filename)
         {
@@ -23,17 +24,47 @@ namespace Microsoft.AspNetCore.Razor.Evolution
             Filename = filename;
         }
 
-        public Encoding Encoding { get; }
+        private string Content
+        {
+            get
+            {
+                if (_content == null)
+                {
+                    InitializeContent();
+                }
+
+                return _content;
+            }
+        }
+
+        public override char this[int position] => Content[position];
+
+        public override Encoding Encoding { get; }
 
         public override string Filename { get; }
 
-        public override TextReader CreateReader()
+        public override int Length => Content.Length;
+
+        public override void CopyTo(int sourceIndex, char[] destination, int destinationIndex, int count) =>
+            Content.CopyTo(sourceIndex, destination, destinationIndex, count);
+
+        private void InitializeContent()
         {
             var copy = new MemoryStream(_stream.ToArray());
-
-            return Encoding == null
+            var reader = Encoding == null
                 ? new StreamReader(copy, detectEncodingFromByteOrderMarks: true)
                 : new StreamReader(copy, Encoding);
+            using (reader)
+            {
+                var text = reader.ReadToEnd();
+
+                if (Encoding != null && Encoding != reader.CurrentEncoding)
+                {
+                    throw new InvalidOperationException($"The set {nameof(Encoding)} does not match the provided content's encoding.");
+                }
+
+                _content = text;
+            }
         }
     }
 }

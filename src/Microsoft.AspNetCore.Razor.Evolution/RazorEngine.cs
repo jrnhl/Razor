@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Razor.Evolution.TagHelpers;
+using Microsoft.AspNetCore.Razor.Evolution;
 
 namespace Microsoft.AspNetCore.Razor.Evolution
 {
@@ -13,9 +13,6 @@ namespace Microsoft.AspNetCore.Razor.Evolution
         {
             return Create(configure: null);
         }
-
-        // TODO: These should probably exist as extension methods in a different library to add features that don't exist
-        // in the parser. I.E. TagHelperDescriptorResolver implementation.
 
         public static RazorEngine Create(Action<IRazorEngineBuilder> configure)
         {

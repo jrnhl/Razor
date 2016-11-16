@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Razor.Evolution.Legacy;
 
-namespace Microsoft.AspNetCore.Razor.Evolution.TagHelpers
+namespace Microsoft.AspNetCore.Razor.Evolution
 {
     internal class TagHelperFeature : IRazorEngineFeature
     {

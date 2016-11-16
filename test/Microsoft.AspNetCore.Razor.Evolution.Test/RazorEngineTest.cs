@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Razor.Evolution.TagHelpers;
+using Microsoft.AspNetCore.Razor.Evolution;
 using Moq;
 using Xunit;
 

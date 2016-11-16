@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Razor.Evolution.Legacy;
 
-namespace Microsoft.AspNetCore.Razor.Evolution.TagHelpers
+namespace Microsoft.AspNetCore.Razor.Evolution
 {
     internal class TagHelperBinderSyntaxTreePass : IRazorSyntaxTreePass
     {
